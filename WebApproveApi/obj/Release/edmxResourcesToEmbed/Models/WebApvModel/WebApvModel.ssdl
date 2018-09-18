@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebApproveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DocumentDetail">
+    <Key>
+      <PropertyRef Name="docDetailId" />
+    </Key>
+    <Property Name="docDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="subjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="dataRequest" Type="ntext" Nullable="false" />
+    <Property Name="dateRequest" Type="datetime" Nullable="false" />
+    <Property Name="senderId" Type="nvarchar" MaxLength="10" />
+    <Property Name="statusId" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="regId" Type="int" Nullable="false" />
+    <Property Name="numOfDocument" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'WebApprove.dbo.EmpPermission' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="EmpPermission">
+    <Key>
+      <PropertyRef Name="regId" />
+    </Key>
+    <Property Name="regId" Type="int" Nullable="false" />
+    <Property Name="groupPermission" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Register">
+    <Key>
+      <PropertyRef Name="regId" />
+    </Key>
+    <Property Name="regId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="schemaName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Schema" Type="ntext" Nullable="false" />
+    <Property Name="Transform" Type="ntext" />
+    <Property Name="targetNameSpace" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_ApproveOrRejectUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="docDetailId" Type="int" Mode="In" />
+    <Parameter Name="statusChange" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_CheckUnApprove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_DocDetailInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="subjectName" Type="nvarchar" Mode="In" />
+    <Parameter Name="dataRequest" Type="ntext" Mode="In" />
+    <Parameter Name="dateRequest" Type="datetime" Mode="In" />
+    <Parameter Name="senderId" Type="nvarchar" Mode="In" />
+    <Parameter Name="statusId" Type="nvarchar" Mode="In" />
+    <Parameter Name="regId" Type="int" Mode="In" />
+    <Parameter Name="numOfDocument" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_DocDetailSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EmpPermissionInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="regId" Type="int" Mode="In" />
+    <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_getAllDocDetailByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_getDocNameByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_HistoryApproving" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_historyInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="docDetailId" Type="int" Mode="In" />
+    <Parameter Name="statusId" Type="nvarchar" Mode="In" />
+    <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+    <Parameter Name="Reason" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_PullingService" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_RegisterInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="schemaName" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Schema" Type="ntext" Mode="In" />
+    <Parameter Name="targetNameSpace" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Transform" Type="ntext" Mode="In" />
+  </Function>
+  <Function Name="sp_RegisterSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_selectWaitingStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="regId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_showApprovedetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="docDetailId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_TestInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ikey" Type="nvarchar" Mode="In" />
+    <Parameter Name="data" Type="nvarchar(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_TestSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="WebApproveModelStoreContainer">
+    <EntitySet Name="DocumentDetail" EntityType="Self.DocumentDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Register" EntityType="Self.Register" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmpPermission" EntityType="Self.EmpPermission" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [EmpPermission].[regId] AS [regId], 
+    [EmpPermission].[groupPermission] AS [groupPermission]
+    FROM [dbo].[EmpPermission] AS [EmpPermission]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

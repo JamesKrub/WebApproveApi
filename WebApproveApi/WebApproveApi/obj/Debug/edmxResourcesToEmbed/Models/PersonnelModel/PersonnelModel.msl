@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PersonnelModelStoreContainer" CdmEntityContainer="PersonnelEntities">
+    <FunctionImportMapping FunctionImportName="sp_chckLogin" FunctionName="PersonnelModel.Store.sp_chckLogin">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PersonnelModel.sp_chckLogin_Result">
+          <ScalarProperty Name="number" ColumnName="number" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="PersonnelModel.Company">
+        <MappingFragment StoreEntitySet="Company">
+          <ScalarProperty Name="campanyName" ColumnName="campanyName" />
+          <ScalarProperty Name="companyId" ColumnName="companyId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logins">
+      <EntityTypeMapping TypeName="PersonnelModel.Login">
+        <MappingFragment StoreEntitySet="Login">
+          <ScalarProperty Name="empId" ColumnName="empId" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="username" ColumnName="username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Positions">
+      <EntityTypeMapping TypeName="PersonnelModel.Position">
+        <MappingFragment StoreEntitySet="Position">
+          <ScalarProperty Name="positionNameEN" ColumnName="positionNameEN" />
+          <ScalarProperty Name="positionNameTH" ColumnName="positionNameTH" />
+          <ScalarProperty Name="positionId" ColumnName="positionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Prefixes">
+      <EntityTypeMapping TypeName="PersonnelModel.Prefix">
+        <MappingFragment StoreEntitySet="Prefix">
+          <ScalarProperty Name="prefixNameEN" ColumnName="prefixNameEN" />
+          <ScalarProperty Name="prefixNameTH" ColumnName="prefixNameTH" />
+          <ScalarProperty Name="prefixId" ColumnName="prefixId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employees">
+      <EntityTypeMapping TypeName="PersonnelModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="companyId" ColumnName="companyId" />
+          <ScalarProperty Name="prefixId" ColumnName="prefixId" />
+          <ScalarProperty Name="positionId" ColumnName="positionId" />
+          <ScalarProperty Name="sNameEN" ColumnName="sNameEN" />
+          <ScalarProperty Name="fNameEN" ColumnName="fNameEN" />
+          <ScalarProperty Name="sNameTH" ColumnName="sNameTH" />
+          <ScalarProperty Name="fNameTH" ColumnName="fNameTH" />
+          <ScalarProperty Name="empId" ColumnName="empId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,559 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="WebApproveModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DocumentDetail">
+          <Key>
+            <PropertyRef Name="docDetailId" />
+          </Key>
+          <Property Name="docDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="subjectName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="dataRequest" Type="ntext" Nullable="false" />
+          <Property Name="dateRequest" Type="datetime" Nullable="false" />
+          <Property Name="senderId" Type="nvarchar" MaxLength="10" />
+          <Property Name="statusId" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="regId" Type="int" Nullable="false" />
+          <Property Name="numOfDocument" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'WebApprove.dbo.EmpPermission' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmpPermission">
+          <Key>
+            <PropertyRef Name="regId" />
+            
+          </Key>
+          <Property Name="regId" Type="int" Nullable="false" />
+          <Property Name="groupPermission" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Register">
+          <Key>
+            <PropertyRef Name="regId" />
+          </Key>
+          <Property Name="regId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="schemaName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Schema" Type="ntext" Nullable="false" />
+          <Property Name="Transform" Type="ntext" />
+          <Property Name="targetNameSpace" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_ApproveOrRejectUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="docDetailId" Type="int" Mode="In" />
+          <Parameter Name="statusChange" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_CheckUnApprove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_DocDetailInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="subjectName" Type="nvarchar" Mode="In" />
+          <Parameter Name="dataRequest" Type="ntext" Mode="In" />
+          <Parameter Name="dateRequest" Type="datetime" Mode="In" />
+          <Parameter Name="senderId" Type="nvarchar" Mode="In" />
+          <Parameter Name="statusId" Type="nvarchar" Mode="In" />
+          <Parameter Name="regId" Type="int" Mode="In" />
+          <Parameter Name="numOfDocument" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_DocDetailSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_EmpPermissionInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="regId" Type="int" Mode="In" />
+          <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_getAllDocDetailByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_getDocNameByUserID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_HistoryApproving" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_historyInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="docDetailId" Type="int" Mode="In" />
+          <Parameter Name="statusId" Type="nvarchar" Mode="In" />
+          <Parameter Name="groupPermission" Type="nvarchar" Mode="In" />
+          <Parameter Name="Reason" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_PullingService" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_RegisterInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="schemaName" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Schema" Type="ntext" Mode="In" />
+          <Parameter Name="targetNameSpace" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="Transform" Type="ntext" Mode="In" />
+        </Function>
+        <Function Name="sp_RegisterSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_selectWaitingStatus" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="regId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_showApprovedetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="docDetailId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_TestInsert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ikey" Type="nvarchar" Mode="In" />
+          <Parameter Name="data" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_TestSelect" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="WebApproveModelStoreContainer">
+          <EntitySet Name="DocumentDetail" EntityType="Self.DocumentDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Register" EntityType="Self.Register" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpPermission" EntityType="Self.EmpPermission" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmpPermission].[regId] AS [regId], 
+    [EmpPermission].[groupPermission] AS [groupPermission]
+    FROM [dbo].[EmpPermission] AS [EmpPermission]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WebApproveModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="WebApproveEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="sp_RegisterInsert" ReturnType="Collection(WebApproveModel.sp_RegisterInsert_Result)">
+            <Parameter Name="schemaName" Mode="In" Type="String" />
+            <Parameter Name="Schema" Mode="In" Type="String" />
+            <Parameter Name="targetNameSpace" Mode="In" Type="String" />
+            <Parameter Name="Transform" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_RegisterSelect" ReturnType="Collection(WebApproveModel.sp_RegisterSelect_Result)" />
+          <FunctionImport Name="sp_CheckUnApprove" ReturnType="Collection(WebApproveModel.sp_CheckUnApprove_Result)" >
+          <Parameter Name="groupPermission" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_DocDetailSelect" ReturnType="Collection(WebApproveModel.sp_DocDetailSelect_Result)" />
+          <FunctionImport Name="sp_DocDetailInsert">
+            <Parameter Name="subjectName" Mode="In" Type="String" />
+            <Parameter Name="dataRequest" Mode="In" Type="String" />
+            <Parameter Name="dateRequest" Mode="In" Type="DateTime" />
+            <Parameter Name="senderId" Mode="In" Type="String" />
+            <Parameter Name="statusId" Mode="In" Type="String" />
+            <Parameter Name="regId" Mode="In" Type="Int32" />
+            <Parameter Name="numOfDocument" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Registers" EntityType="WebApproveModel.Register" />
+          <FunctionImport Name="sp_EmpPermissionInsert">
+            <Parameter Name="regId" Mode="In" Type="Int32" />
+            <Parameter Name="groupPermission" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="EmpPermissions" EntityType="WebApproveModel.EmpPermission" />
+          <FunctionImport Name="sp_selectWaitingStatus" ReturnType="Collection(WebApproveModel.sp_selectWaitingStatus_Result)">
+          <Parameter Name="regId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ApproveOrRejectUpdate">
+            <Parameter Name="docDetailId" Mode="In" Type="Int32" />
+            <Parameter Name="statusChange" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getDocNameByUserID" ReturnType="Collection(WebApproveModel.sp_getDocNameByUserID_Result)">
+          <Parameter Name="groupPermission" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_historyInsert">
+            <Parameter Name="docDetailId" Mode="In" Type="Int32" />
+            <Parameter Name="statusId" Mode="In" Type="String" />
+            <Parameter Name="groupPermission" Mode="In" Type="String" />
+            <Parameter Name="Reason" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_HistoryApproving" ReturnType="Collection(WebApproveModel.sp_HistoryApproving_Result)">
+          <Parameter Name="groupPermission" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_showApprovedetail" ReturnType="Collection(WebApproveModel.sp_showApprovedetail_Result)">
+          <Parameter Name="docDetailId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_getAllDocDetailByUserID" ReturnType="Collection(WebApproveModel.sp_getAllDocDetailByUserID_Result)">
+          <Parameter Name="groupPermission" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_PullingService" ReturnType="Collection(WebApproveModel.sp_PullingService_Result)">
+          </FunctionImport>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(WebApproveModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(WebApproveModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_TestInsert">
+            <Parameter Name="ikey" Mode="In" Type="String" />
+            <Parameter Name="data" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_TestSelect" />
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="DocumentDetails" EntityType="WebApproveModel.DocumentDetail" />
+        </EntityContainer>
+        <ComplexType Name="sp_RegisterSelect_Result">
+          <Property Type="Int32" Name="regId" Nullable="false" />
+          <Property Type="String" Name="Schema" Nullable="false" MaxLength="Max" />
+          <Property Type="String" Name="groupApprove" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="schemaName" Nullable="true" />
+          <Property Type="String" Name="targetNameSpace" Nullable="true" MaxLength="Max" />
+          </ComplexType>
+        <ComplexType Name="sp_DocDetailSelect_Result">
+          <Property Type="Int32" Name="docDetaiId" Nullable="false" />
+          <Property Type="String" Name="docType" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="dataRequest" Nullable="true" MaxLength="Max" />
+          <Property Type="DateTime" Name="dateRequest" Nullable="true" Precision="23" />
+          <Property Type="String" Name="empId" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="statusId" Nullable="true" MaxLength="2" />
+        </ComplexType>
+        <EntityType Name="Register">
+          <Key>
+            <PropertyRef Name="regId" />
+          </Key>
+          <Property Name="regId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="schemaName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Schema" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="targetNameSpace" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Transform" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="sp_RegisterInsert_Result">
+          <Property Type="Int32" Name="reg_ID" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="EmpPermission">
+          <Key>
+            <PropertyRef Name="regId" />
+          </Key>
+          <Property Name="regId" Type="Int32" Nullable="false" />
+          <Property Name="groupPermission" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="sp_selectWaitingStatus_Result">
+          <Property Type="String" Name="subjectName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="dateRequest" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="countDay" Nullable="true" />
+          <Property Type="Int32" Name="docDetailId" Nullable="false" />
+          <Property Type="Int32" Name="regId" Nullable="false" />
+          <Property Type="String" Name="numOfDocument" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="senderId" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_CheckUnApprove_Result">
+          <Property Type="Int32" Name="regId" Nullable="false" />
+          <Property Type="Int32" Name="counts" Nullable="true" />
+          <Property Type="String" Name="schemaName" Nullable="true" />
+          <Property Type="String" Name="groupPermission" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_getDocNameByUserID_Result">
+          <Property Type="Int32" Name="regId" Nullable="false" />
+          <Property Type="String" Name="schemaName" Nullable="true" />
+          <Property Type="String" Name="groupPermission" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="counts" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="sp_HistoryApproving_Result">
+          <Property Type="String" Name="subjectName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="fNameTH" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="sNameTH" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="fNameEN" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="sNameEN" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="regId" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="103" />
+          <Property Type="String" Name="targetNameSpace" Nullable="true" />
+          <Property Type="Int32" Name="docDetailId" Nullable="false" />
+          <Property Type="String" Name="numOfDocument" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Reason" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_showApprovedetail_Result">
+          <Property Type="String" Name="dataRequest" Nullable="true" MaxLength="Max" />
+        </ComplexType>
+        <ComplexType Name="sp_getAllDocDetailByUserID_Result">
+          <Property Type="Int32" Name="docDetailId" Nullable="false" />
+          <Property Type="String" Name="subjectName" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="countDay" Nullable="true" />
+          <Property Type="DateTime" Name="dateRequest" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="regId" Nullable="false" />
+          <Property Type="String" Name="numOfDocument" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="senderId" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_PullingService_Result">
+          <Property Type="Int32" Name="regId" Nullable="false" />
+          <Property Type="String" Name="subjectName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="date" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="103" />
+          <Property Type="String" Name="fNameTH" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="sNameTH" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="fNameEN" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="sNameEN" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="senderId" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Reason" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="DocumentDetail">
+          <Key>
+            <PropertyRef Name="docDetailId" />
+          </Key>
+          <Property Name="docDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="subjectName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="dataRequest" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateRequest" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="senderId" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="statusId" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="regId" Type="Int32" Nullable="false" />
+          <Property Name="numOfDocument" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WebApproveModelStoreContainer" CdmEntityContainer="WebApproveEntities" >
+        <FunctionImportMapping FunctionImportName="sp_RegisterInsert" FunctionName="WebApproveModel.Store.sp_RegisterInsert" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_RegisterInsert_Result">
+                <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_RegisterSelect" FunctionName="WebApproveModel.Store.sp_RegisterSelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_RegisterSelect_Result">
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="Schema" ColumnName="Schema" />
+                <ScalarProperty Name="groupApprove" ColumnName="groupApprove" />
+                <ScalarProperty Name="schemaName" ColumnName="schemaName" />
+                <ScalarProperty Name="targetNameSpace" ColumnName="targetNameSpace" />
+                </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_CheckUnApprove" FunctionName="WebApproveModel.Store.sp_CheckUnApprove" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_CheckUnApprove_Result">
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="counts" ColumnName="counts" />
+                <ScalarProperty Name="schemaName" ColumnName="schemaName" />
+                <ScalarProperty Name="groupPermission" ColumnName="groupPermission" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DocDetailSelect" FunctionName="WebApproveModel.Store.sp_DocDetailSelect">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_DocDetailSelect_Result">
+                <ScalarProperty Name="docDetaiId" ColumnName="docDetaiId" />
+                <ScalarProperty Name="docType" ColumnName="docType" />
+                <ScalarProperty Name="dataRequest" ColumnName="dataRequest" />
+                <ScalarProperty Name="dateRequest" ColumnName="dateRequest" />
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="statusId" ColumnName="statusId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_DocDetailInsert" FunctionName="WebApproveModel.Store.sp_DocDetailInsert" />
+          <EntitySetMapping Name="Registers">
+            <EntityTypeMapping TypeName="IsTypeOf(WebApproveModel.Register)">
+              <MappingFragment StoreEntitySet="Register">
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="schemaName" ColumnName="schemaName" />
+                <ScalarProperty Name="Schema" ColumnName="Schema" />
+                <ScalarProperty Name="targetNameSpace" ColumnName="targetNameSpace" />
+                <ScalarProperty Name="Transform" ColumnName="Transform" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_EmpPermissionInsert" FunctionName="WebApproveModel.Store.sp_EmpPermissionInsert" />
+          <EntitySetMapping Name="EmpPermissions">
+            <EntityTypeMapping TypeName="WebApproveModel.EmpPermission">
+              <MappingFragment StoreEntitySet="EmpPermission">
+                <ScalarProperty Name="groupPermission" ColumnName="groupPermission" />
+                <ScalarProperty Name="regId" ColumnName="regId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_selectWaitingStatus" FunctionName="WebApproveModel.Store.sp_selectWaitingStatus">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_selectWaitingStatus_Result">
+                <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+                <ScalarProperty Name="dateRequest" ColumnName="dateRequest" />
+                <ScalarProperty Name="countDay" ColumnName="countDay" />
+                <ScalarProperty Name="docDetailId" ColumnName="docDetailId" />
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="numOfDocument" ColumnName="numOfDocument" />
+                <ScalarProperty Name="senderId" ColumnName="senderId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ApproveOrRejectUpdate" FunctionName="WebApproveModel.Store.sp_ApproveOrRejectUpdate" />
+          <FunctionImportMapping FunctionImportName="sp_getDocNameByUserID" FunctionName="WebApproveModel.Store.sp_getDocNameByUserID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_getDocNameByUserID_Result">
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="schemaName" ColumnName="schemaName" />
+                <ScalarProperty Name="groupPermission" ColumnName="groupPermission" />
+                <ScalarProperty Name="counts" ColumnName="counts" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_historyInsert" FunctionName="WebApproveModel.Store.sp_historyInsert" />
+          <FunctionImportMapping FunctionImportName="sp_HistoryApproving" FunctionName="WebApproveModel.Store.sp_HistoryApproving">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_HistoryApproving_Result">
+                <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="fNameTH" ColumnName="fNameTH" />
+                <ScalarProperty Name="sNameTH" ColumnName="sNameTH" />
+                <ScalarProperty Name="fNameEN" ColumnName="fNameEN" />
+                <ScalarProperty Name="sNameEN" ColumnName="sNameEN" />
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="targetNameSpace" ColumnName="targetNameSpace" />
+                <ScalarProperty Name="docDetailId" ColumnName="docDetailId" />
+                <ScalarProperty Name="numOfDocument" ColumnName="numOfDocument" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_showApprovedetail" FunctionName="WebApproveModel.Store.sp_showApprovedetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_showApprovedetail_Result">
+                <ScalarProperty Name="dataRequest" ColumnName="dataRequest" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getAllDocDetailByUserID" FunctionName="WebApproveModel.Store.sp_getAllDocDetailByUserID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_getAllDocDetailByUserID_Result">
+                <ScalarProperty Name="docDetailId" ColumnName="docDetailId" />
+                <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+                <ScalarProperty Name="countDay" ColumnName="countDay" />
+                <ScalarProperty Name="dateRequest" ColumnName="dateRequest" />
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="numOfDocument" ColumnName="numOfDocument" />
+                <ScalarProperty Name="senderId" ColumnName="senderId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_PullingService" FunctionName="WebApproveModel.Store.sp_PullingService">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_PullingService_Result">
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="fNameTH" ColumnName="fNameTH" />
+                <ScalarProperty Name="sNameTH" ColumnName="sNameTH" />
+                <ScalarProperty Name="fNameEN" ColumnName="fNameEN" />
+                <ScalarProperty Name="sNameEN" ColumnName="sNameEN" />
+                <ScalarProperty Name="senderId" ColumnName="senderId" />
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="WebApproveModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="WebApproveModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="WebApproveModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="WebApproveModel.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="WebApproveModel.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="WebApproveModel.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="WebApproveModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_TestInsert" FunctionName="WebApproveModel.Store.sp_TestInsert" />
+          <FunctionImportMapping FunctionImportName="sp_TestSelect" FunctionName="WebApproveModel.Store.sp_TestSelect" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="WebApproveModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="DocumentDetails">
+            <EntityTypeMapping TypeName="WebApproveModel.DocumentDetail">
+              <MappingFragment StoreEntitySet="DocumentDetail">
+                <ScalarProperty Name="numOfDocument" ColumnName="numOfDocument" />
+                <ScalarProperty Name="regId" ColumnName="regId" />
+                <ScalarProperty Name="statusId" ColumnName="statusId" />
+                <ScalarProperty Name="senderId" ColumnName="senderId" />
+                <ScalarProperty Name="dateRequest" ColumnName="dateRequest" />
+                <ScalarProperty Name="dataRequest" ColumnName="dataRequest" />
+                <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+                <ScalarProperty Name="docDetailId" ColumnName="docDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

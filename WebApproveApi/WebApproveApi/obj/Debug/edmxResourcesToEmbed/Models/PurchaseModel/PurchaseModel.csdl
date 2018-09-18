@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SalePurchaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="SalePurchaseEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_PurchaseDelete">
+      <Parameter Name="purchaseId" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_PurchaseInsert">
+      <Parameter Name="purchaseId" Mode="In" Type="String" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Date" Mode="In" Type="DateTime" />
+      <Parameter Name="Price" Mode="In" Type="Decimal" />
+      <Parameter Name="NumberQty" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_PurchaseSelect" ReturnType="Collection(SalePurchaseModel.sp_PurchaseSelect_Result)" />
+    <FunctionImport Name="sp_PurchaseSelectTtlMoneyEchMonthByYear" ReturnType="Collection(SalePurchaseModel.sp_PurchaseSelectTtlMoneyEchMonthByYear_Result)" />
+    <FunctionImport Name="sp_PurchaseSelectYear" ReturnType="Collection(SalePurchaseModel.sp_PurchaseSelectYear_Result)" />
+    <FunctionImport Name="sp_PurchaseUpdate">
+      <Parameter Name="purchaseId" Mode="In" Type="String" />
+      <Parameter Name="Name" Mode="In" Type="String" />
+      <Parameter Name="Date" Mode="In" Type="DateTime" />
+      <Parameter Name="Price" Mode="In" Type="Decimal" />
+      <Parameter Name="NumberQty" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Purchases" EntityType="SalePurchaseModel.Purchase" />
+  </EntityContainer>
+  <ComplexType Name="sp_PurchaseSelect_Result">
+    <Property Type="String" Name="purchaseId" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="Name" Nullable="true" />
+    <Property Type="DateTime" Name="Date" Nullable="true" Precision="23" />
+    <Property Type="Decimal" Name="Price" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="NumberQty" Nullable="true" />
+    <Property Type="Decimal" Name="TtlPrice" Nullable="true" Precision="29" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="sp_PurchaseSelectTtlMoneyEchMonthByYear_Result">
+    <Property Type="Int32" Name="Year" Nullable="true" />
+    <Property Type="Int32" Name="Month" Nullable="true" />
+    <Property Type="Decimal" Name="Total" Nullable="true" Precision="38" Scale="2" />
+  </ComplexType>
+  <EntityType Name="Purchase">
+    <Key>
+      <PropertyRef Name="purchaseId" />
+    </Key>
+    <Property Name="purchaseId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="NumberQty" Type="Int32" />
+  </EntityType>
+  <ComplexType Name="sp_PurchaseSelectYear_Result">
+    <Property Type="Int32" Name="Year" Nullable="true" />
+  </ComplexType>
+</Schema>

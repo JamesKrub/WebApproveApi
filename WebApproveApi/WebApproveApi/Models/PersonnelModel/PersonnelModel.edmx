@@ -1,0 +1,223 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PersonnelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="companyId" />
+          </Key>
+          <Property Name="companyId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="campanyName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Personnel.dbo.Employee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="empId" />
+          </Key>
+          <Property Name="empId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fNameTH" Type="nvarchar" MaxLength="50" />
+          <Property Name="sNameTH" Type="nvarchar" MaxLength="50" />
+          <Property Name="fNameEN" Type="nvarchar" MaxLength="50" />
+          <Property Name="sNameEN" Type="nvarchar" MaxLength="50" />
+          <Property Name="positionId" Type="nvarchar" MaxLength="50" />
+          <Property Name="prefixId" Type="int" />
+          <Property Name="companyId" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="nvarchar" MaxLength="16" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="empId" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="positionId" />
+          </Key>
+          <Property Name="positionId" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="positionNameTH" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="positionNameEN" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Prefix">
+          <Key>
+            <PropertyRef Name="prefixId" />
+          </Key>
+          <Property Name="prefixId" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="prefixNameTH" Type="nvarchar" MaxLength="50" />
+          <Property Name="prefixNameEN" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Function Name="sp_chckLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="PersonnelModelStoreContainer">
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Prefix" EntityType="Self.Prefix" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Employee].[empId] AS [empId], 
+    [Employee].[fNameTH] AS [fNameTH], 
+    [Employee].[sNameTH] AS [sNameTH], 
+    [Employee].[fNameEN] AS [fNameEN], 
+    [Employee].[sNameEN] AS [sNameEN], 
+    [Employee].[positionId] AS [positionId], 
+    [Employee].[prefixId] AS [prefixId], 
+    [Employee].[companyId] AS [companyId]
+    FROM [dbo].[Employee] AS [Employee]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PersonnelModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PersonnelEntities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="sp_chckLogin" ReturnType="Collection(PersonnelModel.sp_chckLogin_Result)">
+            <Parameter Name="username" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Companies" EntityType="PersonnelModel.Company" />
+          <EntitySet Name="Logins" EntityType="PersonnelModel.Login" />
+          <EntitySet Name="Positions" EntityType="PersonnelModel.Position" />
+          <EntitySet Name="Prefixes" EntityType="PersonnelModel.Prefix" />
+          <EntitySet Name="Employees" EntityType="PersonnelModel.Employee" />
+        </EntityContainer>
+        <ComplexType Name="sp_chckLogin_Result">
+          <Property Type="Int32" Name="number" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="companyId" />
+          </Key>
+          <Property Name="companyId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="campanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="empId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Position">
+          <Key>
+            <PropertyRef Name="positionId" />
+          </Key>
+          <Property Name="positionId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="positionNameTH" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="positionNameEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Prefix">
+          <Key>
+            <PropertyRef Name="prefixId" />
+          </Key>
+          <Property Name="prefixId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="prefixNameTH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="prefixNameEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="empId" />
+          </Key>
+          <Property Name="empId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fNameTH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sNameTH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fNameEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sNameEN" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="positionId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="prefixId" Type="Int32" />
+          <Property Name="companyId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PersonnelModelStoreContainer" CdmEntityContainer="PersonnelEntities" >
+          <FunctionImportMapping FunctionImportName="sp_chckLogin" FunctionName="PersonnelModel.Store.sp_chckLogin" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PersonnelModel.sp_chckLogin_Result">
+                <ScalarProperty Name="number" ColumnName="number" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Companies">
+            <EntityTypeMapping TypeName="PersonnelModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="campanyName" ColumnName="campanyName" />
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="PersonnelModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="empId" ColumnName="empId" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Positions">
+            <EntityTypeMapping TypeName="PersonnelModel.Position">
+              <MappingFragment StoreEntitySet="Position">
+                <ScalarProperty Name="positionNameEN" ColumnName="positionNameEN" />
+                <ScalarProperty Name="positionNameTH" ColumnName="positionNameTH" />
+                <ScalarProperty Name="positionId" ColumnName="positionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Prefixes">
+            <EntityTypeMapping TypeName="PersonnelModel.Prefix">
+              <MappingFragment StoreEntitySet="Prefix">
+                <ScalarProperty Name="prefixNameEN" ColumnName="prefixNameEN" />
+                <ScalarProperty Name="prefixNameTH" ColumnName="prefixNameTH" />
+                <ScalarProperty Name="prefixId" ColumnName="prefixId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="PersonnelModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="prefixId" ColumnName="prefixId" />
+                <ScalarProperty Name="positionId" ColumnName="positionId" />
+                <ScalarProperty Name="sNameEN" ColumnName="sNameEN" />
+                <ScalarProperty Name="fNameEN" ColumnName="fNameEN" />
+                <ScalarProperty Name="sNameTH" ColumnName="sNameTH" />
+                <ScalarProperty Name="fNameTH" ColumnName="fNameTH" />
+                <ScalarProperty Name="empId" ColumnName="empId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

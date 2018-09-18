@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PersonnelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Company">
+    <Key>
+      <PropertyRef Name="companyId" />
+    </Key>
+    <Property Name="companyId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="campanyName" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Personnel.dbo.Employee' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="empId" />
+    </Key>
+    <Property Name="empId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fNameTH" Type="nvarchar" MaxLength="50" />
+    <Property Name="sNameTH" Type="nvarchar" MaxLength="50" />
+    <Property Name="fNameEN" Type="nvarchar" MaxLength="50" />
+    <Property Name="sNameEN" Type="nvarchar" MaxLength="50" />
+    <Property Name="positionId" Type="nvarchar" MaxLength="50" />
+    <Property Name="prefixId" Type="int" />
+    <Property Name="companyId" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="nvarchar" MaxLength="16" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="empId" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="positionId" />
+    </Key>
+    <Property Name="positionId" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="positionNameTH" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="positionNameEN" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Prefix">
+    <Key>
+      <PropertyRef Name="prefixId" />
+    </Key>
+    <Property Name="prefixId" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="prefixNameTH" Type="nvarchar" MaxLength="50" />
+    <Property Name="prefixNameEN" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Function Name="sp_chckLogin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="username" Type="nvarchar" Mode="In" />
+    <Parameter Name="password" Type="nvarchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="PersonnelModelStoreContainer">
+    <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Prefix" EntityType="Self.Prefix" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Employee].[empId] AS [empId], 
+    [Employee].[fNameTH] AS [fNameTH], 
+    [Employee].[sNameTH] AS [sNameTH], 
+    [Employee].[fNameEN] AS [fNameEN], 
+    [Employee].[sNameEN] AS [sNameEN], 
+    [Employee].[positionId] AS [positionId], 
+    [Employee].[prefixId] AS [prefixId], 
+    [Employee].[companyId] AS [companyId]
+    FROM [dbo].[Employee] AS [Employee]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

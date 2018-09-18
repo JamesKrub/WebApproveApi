@@ -1,0 +1,185 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebApproveModelStoreContainer" CdmEntityContainer="WebApproveEntities">
+    <FunctionImportMapping FunctionImportName="sp_RegisterInsert" FunctionName="WebApproveModel.Store.sp_RegisterInsert">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_RegisterInsert_Result">
+          <ScalarProperty Name="reg_ID" ColumnName="reg_ID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_RegisterSelect" FunctionName="WebApproveModel.Store.sp_RegisterSelect">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_RegisterSelect_Result">
+          <ScalarProperty Name="regId" ColumnName="regId" />
+          <ScalarProperty Name="Schema" ColumnName="Schema" />
+          <ScalarProperty Name="groupApprove" ColumnName="groupApprove" />
+          <ScalarProperty Name="schemaName" ColumnName="schemaName" />
+          <ScalarProperty Name="targetNameSpace" ColumnName="targetNameSpace" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_CheckUnApprove" FunctionName="WebApproveModel.Store.sp_CheckUnApprove">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_CheckUnApprove_Result">
+          <ScalarProperty Name="regId" ColumnName="regId" />
+          <ScalarProperty Name="counts" ColumnName="counts" />
+          <ScalarProperty Name="schemaName" ColumnName="schemaName" />
+          <ScalarProperty Name="groupPermission" ColumnName="groupPermission" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_DocDetailSelect" FunctionName="WebApproveModel.Store.sp_DocDetailSelect">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_DocDetailSelect_Result">
+          <ScalarProperty Name="docDetaiId" ColumnName="docDetaiId" />
+          <ScalarProperty Name="docType" ColumnName="docType" />
+          <ScalarProperty Name="dataRequest" ColumnName="dataRequest" />
+          <ScalarProperty Name="dateRequest" ColumnName="dateRequest" />
+          <ScalarProperty Name="empId" ColumnName="empId" />
+          <ScalarProperty Name="statusId" ColumnName="statusId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_DocDetailInsert" FunctionName="WebApproveModel.Store.sp_DocDetailInsert" />
+    <EntitySetMapping Name="Registers">
+      <EntityTypeMapping TypeName="IsTypeOf(WebApproveModel.Register)">
+        <MappingFragment StoreEntitySet="Register">
+          <ScalarProperty Name="regId" ColumnName="regId" />
+          <ScalarProperty Name="schemaName" ColumnName="schemaName" />
+          <ScalarProperty Name="Schema" ColumnName="Schema" />
+          <ScalarProperty Name="targetNameSpace" ColumnName="targetNameSpace" />
+          <ScalarProperty Name="Transform" ColumnName="Transform" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_EmpPermissionInsert" FunctionName="WebApproveModel.Store.sp_EmpPermissionInsert" />
+    <EntitySetMapping Name="EmpPermissions">
+      <EntityTypeMapping TypeName="WebApproveModel.EmpPermission">
+        <MappingFragment StoreEntitySet="EmpPermission">
+          <ScalarProperty Name="groupPermission" ColumnName="groupPermission" />
+          <ScalarProperty Name="regId" ColumnName="regId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_selectWaitingStatus" FunctionName="WebApproveModel.Store.sp_selectWaitingStatus">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_selectWaitingStatus_Result">
+          <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+          <ScalarProperty Name="dateRequest" ColumnName="dateRequest" />
+          <ScalarProperty Name="countDay" ColumnName="countDay" />
+          <ScalarProperty Name="docDetailId" ColumnName="docDetailId" />
+          <ScalarProperty Name="regId" ColumnName="regId" />
+          <ScalarProperty Name="numOfDocument" ColumnName="numOfDocument" />
+          <ScalarProperty Name="senderId" ColumnName="senderId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ApproveOrRejectUpdate" FunctionName="WebApproveModel.Store.sp_ApproveOrRejectUpdate" />
+    <FunctionImportMapping FunctionImportName="sp_getDocNameByUserID" FunctionName="WebApproveModel.Store.sp_getDocNameByUserID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_getDocNameByUserID_Result">
+          <ScalarProperty Name="regId" ColumnName="regId" />
+          <ScalarProperty Name="schemaName" ColumnName="schemaName" />
+          <ScalarProperty Name="groupPermission" ColumnName="groupPermission" />
+          <ScalarProperty Name="counts" ColumnName="counts" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_historyInsert" FunctionName="WebApproveModel.Store.sp_historyInsert" />
+    <FunctionImportMapping FunctionImportName="sp_HistoryApproving" FunctionName="WebApproveModel.Store.sp_HistoryApproving">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_HistoryApproving_Result">
+          <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="fNameTH" ColumnName="fNameTH" />
+          <ScalarProperty Name="sNameTH" ColumnName="sNameTH" />
+          <ScalarProperty Name="fNameEN" ColumnName="fNameEN" />
+          <ScalarProperty Name="sNameEN" ColumnName="sNameEN" />
+          <ScalarProperty Name="regId" ColumnName="regId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="targetNameSpace" ColumnName="targetNameSpace" />
+          <ScalarProperty Name="docDetailId" ColumnName="docDetailId" />
+          <ScalarProperty Name="numOfDocument" ColumnName="numOfDocument" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_showApprovedetail" FunctionName="WebApproveModel.Store.sp_showApprovedetail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_showApprovedetail_Result">
+          <ScalarProperty Name="dataRequest" ColumnName="dataRequest" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_getAllDocDetailByUserID" FunctionName="WebApproveModel.Store.sp_getAllDocDetailByUserID">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_getAllDocDetailByUserID_Result">
+          <ScalarProperty Name="docDetailId" ColumnName="docDetailId" />
+          <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+          <ScalarProperty Name="countDay" ColumnName="countDay" />
+          <ScalarProperty Name="dateRequest" ColumnName="dateRequest" />
+          <ScalarProperty Name="regId" ColumnName="regId" />
+          <ScalarProperty Name="numOfDocument" ColumnName="numOfDocument" />
+          <ScalarProperty Name="senderId" ColumnName="senderId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_PullingService" FunctionName="WebApproveModel.Store.sp_PullingService">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_PullingService_Result">
+          <ScalarProperty Name="regId" ColumnName="regId" />
+          <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="fNameTH" ColumnName="fNameTH" />
+          <ScalarProperty Name="sNameTH" ColumnName="sNameTH" />
+          <ScalarProperty Name="fNameEN" ColumnName="fNameEN" />
+          <ScalarProperty Name="sNameEN" ColumnName="sNameEN" />
+          <ScalarProperty Name="senderId" ColumnName="senderId" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="WebApproveModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="WebApproveModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="WebApproveModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="WebApproveModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="WebApproveModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="WebApproveModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="WebApproveModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_TestInsert" FunctionName="WebApproveModel.Store.sp_TestInsert" />
+    <FunctionImportMapping FunctionImportName="sp_TestSelect" FunctionName="WebApproveModel.Store.sp_TestSelect" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="WebApproveModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="DocumentDetails">
+      <EntityTypeMapping TypeName="WebApproveModel.DocumentDetail">
+        <MappingFragment StoreEntitySet="DocumentDetail">
+          <ScalarProperty Name="numOfDocument" ColumnName="numOfDocument" />
+          <ScalarProperty Name="regId" ColumnName="regId" />
+          <ScalarProperty Name="statusId" ColumnName="statusId" />
+          <ScalarProperty Name="senderId" ColumnName="senderId" />
+          <ScalarProperty Name="dateRequest" ColumnName="dateRequest" />
+          <ScalarProperty Name="dataRequest" ColumnName="dataRequest" />
+          <ScalarProperty Name="subjectName" ColumnName="subjectName" />
+          <ScalarProperty Name="docDetailId" ColumnName="docDetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

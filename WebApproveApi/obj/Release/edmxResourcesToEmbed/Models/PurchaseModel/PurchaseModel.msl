@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SalePurchaseModelStoreContainer" CdmEntityContainer="SalePurchaseEntities">
+    <FunctionImportMapping FunctionImportName="sp_PurchaseDelete" FunctionName="SalePurchaseModel.Store.sp_PurchaseDelete" />
+    <FunctionImportMapping FunctionImportName="sp_PurchaseInsert" FunctionName="SalePurchaseModel.Store.sp_PurchaseInsert" />
+    <FunctionImportMapping FunctionImportName="sp_PurchaseSelect" FunctionName="SalePurchaseModel.Store.sp_PurchaseSelect">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SalePurchaseModel.sp_PurchaseSelect_Result">
+          <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="NumberQty" ColumnName="NumberQty" />
+          <ScalarProperty Name="TtlPrice" ColumnName="TtlPrice" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_PurchaseSelectTtlMoneyEchMonthByYear" FunctionName="SalePurchaseModel.Store.sp_PurchaseSelectTtlMoneyEchMonthByYear">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SalePurchaseModel.sp_PurchaseSelectTtlMoneyEchMonthByYear_Result">
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_PurchaseSelectYear" FunctionName="SalePurchaseModel.Store.sp_PurchaseSelectYear">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="SalePurchaseModel.sp_PurchaseSelectYear_Result">
+          <ScalarProperty Name="Year" ColumnName="Year" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_PurchaseUpdate" FunctionName="SalePurchaseModel.Store.sp_PurchaseUpdate" />
+    <EntitySetMapping Name="Purchases">
+      <EntityTypeMapping TypeName="SalePurchaseModel.Purchase">
+        <MappingFragment StoreEntitySet="Purchase">
+          <ScalarProperty Name="NumberQty" ColumnName="NumberQty" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="purchaseId" ColumnName="purchaseId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
